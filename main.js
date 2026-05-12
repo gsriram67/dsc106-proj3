@@ -300,13 +300,13 @@ scG.append("text")
   .attr("x", scInW / 2).attr("y", scInH + 48)
   .attr("text-anchor", "middle").attr("fill", "#d8defc").attr("font-size", 11.5)
   .attr("font-weight", "600")
-  .text("LST anomaly (°C)");
+  .text("LST (°C)");
 scG.append("text")
   .attr("transform", "rotate(-90)")
   .attr("x", -scInH / 2).attr("y", -56)
   .attr("text-anchor", "middle").attr("fill", "#d8defc").attr("font-size", 11.5)
   .attr("font-weight", "600")
-  .text("NDVI anomaly");
+  .text("NDVI");
 
 // Chart title (inside SVG, above plot area)
 const scTitle = scG.append("text")
@@ -485,14 +485,16 @@ function updateRegressionLine() {
     .attr("stroke", "#ffd166")
     .attr("stroke-width", 2.2);
 
-  // r label near the line (at 75% of x range)
-  const xLabel = xSc.domain()[0] + (xSc.domain()[1] - xSc.domain()[0]) * 0.75;
-  const yLabel = b * xLabel + a;
+  // r label: place at fixed bottom-center to avoid overlap with points
+  const rLabelX = scInW / 2;
+  const rLabelY = scInH + 32; // below plot area (px inside scG)
+
   regrG.selectAll(".r-label").data([null])
     .join("text").attr("class", "r-label")
     .transition().duration(550)
-    .attr("x", xSc(xLabel))
-    .attr("y", ySc(yLabel) - 9)
+    .attr("x", rLabelX)
+    .attr("y", rLabelY)
+    .attr("text-anchor", "middle")
     .attr("fill", "#ffd166")
     .attr("font-size", 11)
     .text(`r = ${r.toFixed(2)}`);
