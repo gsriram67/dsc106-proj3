@@ -13,16 +13,47 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #0c0e16;
       color: #e0e0e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Dashboard wrapper: pinned to viewport height so the writeup lives below it */
+    .dashboard {
       height: 100vh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     header {
       padding: 14px 28px 10px;
       border-bottom: 1px solid #232640;
       flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .header-left { flex: 1; min-width: 0; }
+
+    .writeup-jump {
+      flex-shrink: 0;
+      margin-top: 4px;
+      padding: 6px 12px;
+      border: 1px solid #2e3150;
+      border-radius: 20px;
+      color: #9ab3ff;
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .writeup-jump:hover {
+      background: #1e2550;
+      border-color: #5c7cff;
+      color: #c0cfff;
     }
 
     h1 {
@@ -261,15 +292,187 @@
     }
     .brush .handle  { fill: none; }
     .brush .overlay { cursor: crosshair; }
+
+    /* ── Writeup (below the dashboard) ───────────────── */
+    .writeup {
+      background: #0a0c14;
+      border-top: 1px solid #232640;
+      padding: 64px 6vw 96px;
+      color: #aab0c8;
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+
+    .writeup-inner { max-width: 920px; margin: 0 auto; }
+
+    .writeup .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #5c7cff;
+      margin-bottom: 10px;
+    }
+
+    .writeup h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #f2f2ff;
+      letter-spacing: -0.015em;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    .writeup .lead {
+      font-size: 16.5px;
+      color: #d0d4f0;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .writeup h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f2f2ff;
+      margin-top: 56px;
+      margin-bottom: 16px;
+      letter-spacing: -0.005em;
+    }
+
+    .writeup h3 {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #d8defc;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .writeup p { margin-bottom: 14px; }
+    .writeup p strong { color: #eef0ff; font-weight: 600; }
+    .writeup em { color: #d0d4f0; font-style: italic; }
+
+    .writeup ul, .writeup ol {
+      margin: 4px 0 16px 22px;
+    }
+    .writeup li { margin-bottom: 6px; }
+
+    .writeup a {
+      color: #88a5ff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(136, 165, 255, 0.3);
+    }
+    .writeup a:hover { border-bottom-color: #88a5ff; }
+
+    .writeup code {
+      background: #141830;
+      border: 1px solid #252a48;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: 'SF Mono', 'Fira Mono', 'Consolas', monospace;
+      font-size: 12.5px;
+      color: #9ab3ff;
+    }
+
+    .writeup pre {
+      background: #0f1120;
+      border: 1px solid #232640;
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin: 14px 0 18px;
+      overflow-x: auto;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .writeup pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #c0cfff;
+    }
+
+    .writeup table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 22px;
+      background: #0f1120;
+      border: 1px solid #232640;
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 13.5px;
+    }
+
+    .writeup th {
+      background: #141830;
+      color: #c8cce8;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid #232640;
+      font-size: 12.5px;
+      letter-spacing: 0.02em;
+    }
+
+    .writeup td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1a1d35;
+      color: #9aa0bc;
+      vertical-align: top;
+    }
+    .writeup td:first-child { color: #c8cce8; font-weight: 500; }
+    .writeup tr:last-child td { border-bottom: none; }
+
+    .writeup hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #2e3150, transparent);
+      margin: 52px 0;
+    }
+
+    .writeup .section-num {
+      display: inline-block;
+      color: #5c7cff;
+      font-weight: 700;
+      margin-right: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Back-to-top link at the bottom of the writeup */
+    .writeup-foot {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid #1e2240;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      color: #666880;
+    }
+    .writeup-foot a {
+      color: #9ab3ff;
+      border-bottom: none;
+      padding: 6px 12px;
+      border: 1px solid #2e3150;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .writeup-foot a:hover {
+      background: #1e2550;
+      border-color: #5c7cff;
+      color: #c0cfff;
+    }
   </style>
 </head>
-<body>
+<body id="top">
+  <div class="dashboard">
   <header>
-    <h1>California Climate Stress: Rising Temperatures &amp; Vegetation Health (2012–2022)</h1>
-    <p class="subtitle">
-      County-level NDVI and LST anomalies from MODIS satellite data (Jun–Sep vs. 2000–2011 baseline), 58 California counties.
-      Switch drought periods to see geographic stress shift. Brush the scatter to highlight counties on the map.
-    </p>
+    <div class="header-left">
+      <h1>California Climate Stress: Rising Temperatures &amp; Vegetation Health (2012–2022)</h1>
+      <p class="subtitle">
+        County-level NDVI and LST anomalies from MODIS satellite data (Jun–Sep vs. 2000–2011 baseline), 58 California counties.
+        Switch drought periods to see geographic stress shift. Brush the scatter to highlight counties on the map.
+      </p>
+    </div>
+    <a class="writeup-jump" href="#writeup">Project writeup (below)</a>
   </header>
 
   <div class="controls">
@@ -332,6 +535,77 @@
 
     </aside>
   </div>
+  </div><!-- /.dashboard -->
+
+  <section id="writeup" class="writeup">
+    <div class="writeup-inner">
+
+      <div class="eyebrow">Project Writeup</div>
+      <h1>California's Two Droughts, Side by Side</h1>
+      <p class="lead">
+        Our guiding question was direct: <em>how do rising land surface temperatures impact vegetation health and drought recovery in California?</em> The visualization is built end-to-end around answering it, using MODIS satellite imagery for all 58 California counties from 2012 to 2022.
+      </p>
+
+      <hr>
+
+      <h2><span class="section-num">1.</span>The Question and What Surfaces</h2>
+      <p>
+        California spent the 2010s lurching between two of the driest stretches in its instrumental record. First the 2012-2016 drought, then the 2020-2022 drought, separated by a brief but historically wet recovery in 2017-2019. Headlines during those years tend to report a single number, but the spatial story is much more interesting. To compare across four climate periods, two satellite variables, and the relationship between them is genuinely hard to do in working memory, this dashboard exists to take that load off the reader.
+      </p>
+      <p>What the interaction is designed to make visible:</p>
+      <ul>
+        <li><strong>The two droughts are not equivalent.</strong> The 2020-2022 scatter cloud sits visibly farther into the "hotter and browner" quadrant than 2014-2016, and the Pearson <code>r</code> is more strongly negative even though the second drought was shorter.</li>
+        <li><strong>The wet recovery did not fully recover the ecosystem.</strong> In 2017-2019 the cloud snaps back toward the origin but does not actually cross it, the damage from 2014-2016 carried forward.</li>
+        <li><strong>Geography of stress is stable.</strong> Brushing the disaster quadrant in either drought period consistently highlights the San Joaquin Valley and the southern desert / inland counties.</li>
+      </ul>
+
+      <hr>
+
+      <h2><span class="section-num">2.</span>Data and Transformations</h2>
+      <table>
+        <thead>
+          <tr><th>Variable</th><th>Product</th><th>Resolution and cadence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vegetation greenness (NDVI)</td><td><code>MOD13A3</code></td><td>1 km monthly composite</td></tr>
+          <tr><td>Land surface temperature (LST)</td><td><code>MOD11A2</code></td><td>1 km 8-day daytime composite</td></tr>
+          <tr><td>County polygons</td><td>US Census TIGER (<code>us-atlas@3</code>)</td><td>n/a</td></tr>
+        </tbody>
+      </table>
+      <p>
+        NDVI is <code>(NIR - Red) / (NIR + Red)</code>, the optical signature of healthy chlorophyll. LST is the radiometric temperature of the ground surface (not the air), which is the variable that actually drives plant stress. Both are reported as <strong>anomalies versus a 2000-2011 baseline</strong>, restricted to June through September (peak growing season), and aggregated to the county level for each four-year drought period. Anomalies, rather than raw values, let us put Death Valley and San Francisco on the same axis without one swamping the other. The output is checked in as <code>anomalies.json</code>, with a tidy <code>CA_climate_anomalies.csv</code> alongside it for inspection.
+      </p>
+
+      <hr>
+
+      <h2><span class="section-num">3.</span>Design Decisions</h2>
+      <p>
+        The page is a <strong>linked, two-panel coordinated view</strong>. The choropleth on the left answers "where", the scatter on the right answers "how strongly". Each panel uses position for its primary signal (the most accurate visual channel for magnitude, per Cleveland and McGill, 1984), and color is reserved for whatever the panel cannot encode positionally. The map uses a colorblind-safe ColorBrewer palette (<code>BrBG-5</code> for NDVI, reversed <code>RdYlBu-5</code> for LST) binned into five threshold classes, while the scatter uses hue to surface the agro-climatic region each county belongs to. We avoided red-green deliberately, around 8% of male readers cannot distinguish them and a deuteranopia simulator made our first NDVI palette unreadable.
+      </p>
+      <p>
+        The single most consequential decision was <strong>fixing the scatter axes across all four periods</strong>. With auto-scaling, the 2017-19 recovery cloud looked just as "extreme" as the 2020-22 drought cloud because the axes had stretched to fit it. Fixed axes instead let the user literally watch the cloud slide through the plot as they click between periods.
+      </p>
+      <p>
+        Four interactions tie it all together. The period buttons re-fill the map and re-position the scatter dots with a 550 ms cubic-out transition, slow enough that the eye can track individual dots (object constancy, Heer and Robertson, 2007). A toggle flips the map between NDVI and LST so the user can ask "where was it hot?" and "where was it brown?" back-to-back. <strong>Brushing the scatter is the headline interaction</strong>: drag a rectangle in the scatter plot and the matching counties light up on the map, while everything else fades to around 18% opacity. This answers a question that a static plot fundamentally cannot, namely <em>where on the map do the counties in the worst quadrant of the scatter actually live?</em> Hovering on either panel then highlights the matching county on the other with a 2 px white stroke, and reveals a tooltip with the exact anomaly numbers. Together, these are what turn the dashboard into a genuine analytical tool instead of two pretty figures sitting side by side.
+      </p>
+
+      <hr>
+
+      <h2><span class="section-num">4.</span>Development Process</h2>
+      <p>
+        Our process was question-first. We picked the dataset to fit the original question rather than the other way around, which avoided a common Project-3 failure mode where teams pick a dataset and then go hunting for a story. The data pipeline was built in Google Earth Engine in parallel with the front-end, which prototyped against synthetic placeholder data with the same schema, so when the real <code>anomalies.json</code> arrived swapping it in was a one-line change. The hardest decisions in retrospect were not actually technical: aggregating at the county level rather than the climate-division level (noisier, but it reveals within-region variation like Yolo vs. Yuba), fixing the scatter axes globally, and abandoning the first red-green NDVI palette after the deuteranopia test. Given another week, we would add inline tooltip sparklines, a side-by-side two-period compare mode, and a rolling baseline so the visualization extends past 2022 without a rebuild.
+      </p>
+      <p>
+        Tools: <strong>D3.js v7</strong>, <strong>topojson-client</strong>, <strong><code>us-atlas@3</code></strong> counties-10m TopoJSON, and <strong>Google Earth Engine</strong> (Python API). No bundler, no framework, no build step. The entire app is <code>index.html</code> plus <code>main.js</code> plus two data files, served as static assets.
+      </p>
+
+      <div class="writeup-foot">
+        <span>DSC 106 / Project 3 / Spring 2026</span>
+        <a href="#top">Back to top</a>
+      </div>
+
+    </div>
+  </section>
 
   <div id="tooltip"></div>
   <script src="main.js"></script>
