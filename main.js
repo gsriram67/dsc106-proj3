@@ -298,13 +298,15 @@ scG.append("line")
 // Axis labels
 scG.append("text")
   .attr("x", scInW / 2).attr("y", scInH + 48)
-  .attr("text-anchor", "middle").attr("fill", "#888").attr("font-size", 11.5)
-  .text("Land Surface Temperature Anomaly (°C above long-term mean)");
+  .attr("text-anchor", "middle").attr("fill", "#d8defc").attr("font-size", 11.5)
+  .attr("font-weight", "600")
+  .text("LST anomaly (°C)");
 scG.append("text")
   .attr("transform", "rotate(-90)")
   .attr("x", -scInH / 2).attr("y", -56)
-  .attr("text-anchor", "middle").attr("fill", "#888").attr("font-size", 11.5)
-  .text("NDVI Anomaly (vegetation health vs. long-term mean)");
+  .attr("text-anchor", "middle").attr("fill", "#d8defc").attr("font-size", 11.5)
+  .attr("font-weight", "600")
+  .text("NDVI anomaly");
 
 // Chart title (inside SVG, above plot area)
 const scTitle = scG.append("text")
@@ -422,7 +424,7 @@ function updateScatter() {
 
   // Update title
   const p = PERIODS.find(q => q.id === pid);
-  scTitle.text(`${p.label}: ${p.subtitle} — Statewide LST vs. Vegetation Response`);
+  scTitle.text(`${p.label}: ${p.subtitle} — Vegetation Response vs. LST`);
 
   // Dots
   dotsG.selectAll(".scatter-dot")
@@ -480,9 +482,8 @@ function updateRegressionLine() {
     .transition().duration(550)
     .attr("x1", xSc(xL)).attr("y1", ySc(b * xL + a))
     .attr("x2", xSc(xR)).attr("y2", ySc(b * xR + a))
-    .attr("stroke", "rgba(255,200,80,0.45)")
-    .attr("stroke-width", 1.8)
-    .attr("stroke-dasharray", "5,3");
+    .attr("stroke", "#ffd166")
+    .attr("stroke-width", 2.2);
 
   // r label near the line (at 75% of x range)
   const xLabel = xSc.domain()[0] + (xSc.domain()[1] - xSc.domain()[0]) * 0.75;
@@ -492,7 +493,7 @@ function updateRegressionLine() {
     .transition().duration(550)
     .attr("x", xSc(xLabel))
     .attr("y", ySc(yLabel) - 9)
-    .attr("fill", "rgba(255,200,80,0.7)")
+    .attr("fill", "#ffd166")
     .attr("font-size", 11)
     .text(`r = ${r.toFixed(2)}`);
 }
