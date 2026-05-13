@@ -543,14 +543,17 @@
       <div class="eyebrow">Project Writeup</div>
       <h1>California's Two Droughts, Side by Side</h1>
       <p class="lead">
-        Our guiding question was direct: <em>how do rising land surface temperatures impact vegetation health and drought recovery in California?</em> The visualization is built end-to-end around answering it, using MODIS satellite imagery for all 58 California counties from 2012 to 2022.
+        Our guiding question was direct: <em>how do rising land surface temperatures impact vegetation health and drought recovery in California?</em> The 
+        visualization is built end-to-end around answering it, using MODIS satellite imagery for all 58 California counties from 2012 to 2022.
       </p>
 
       <hr>
 
       <h2><span class="section-num">1.</span>The Question and What Surfaces</h2>
       <p>
-        California spent the 2010s lurching between two of the driest stretches in its instrumental record. First the 2012-2016 drought, then the 2020-2022 drought, separated by a brief but historically wet recovery in 2017-2019. Headlines during those years tend to report a single number, but the spatial story is much more interesting. To compare across four climate periods, two satellite variables, and the relationship between them is genuinely hard to do in working memory, this dashboard exists to take that load off the reader.
+        During the 2010s, California experienced two of the driest periods on record: a drought from 2012-2016, and another drought from 2020-2022. 
+        These dry periods were separated by a brief wet recovery from 2017-2019. Statewide averages often dominated the headlines, but they mask how unevenly 
+        drought falls across the state. This dashboard maps two satellite variables across four periods of time to visualize those differences in space.
       </p>
       <p>What the interaction is designed to make visible:</p>
       <ul>
@@ -573,27 +576,47 @@
         </tbody>
       </table>
       <p>
-        NDVI is <code>(NIR - Red) / (NIR + Red)</code>, the optical signature of healthy chlorophyll. LST is the radiometric temperature of the ground surface (not the air), which is the variable that actually drives plant stress. Both are reported as <strong>anomalies versus a 2000-2011 baseline</strong>, restricted to June through September (peak growing season), and aggregated to the county level for each four-year drought period. Anomalies, rather than raw values, let us put Death Valley and San Francisco on the same axis without one swamping the other. The output is checked in as <code>anomalies.json</code>, with a tidy <code>CA_climate_anomalies.csv</code> alongside it for inspection.
-      </p>
-
+        NDVI is the optical signature of healthy chlorophyll and LST is the radiometric temperature of the ground surface (not the air), which is the variable that actually 
+        drives plant stress. Both are reported as <strong>anomalies versus a 2000-2011 baseline</strong>, restricted to June through September (peak growing season), and 
+        aggregated to the county level for each four-year drought period. Anomalies, rather than raw values, let us put Death Valley and San Francisco on the same axis 
+        without one swamping the other. 
       <hr>
 
       <h2><span class="section-num">3.</span>Design Decisions</h2>
       <p>
-        The page is a <strong>linked, two-panel coordinated view</strong>. The choropleth on the left answers "where", the scatter on the right answers "how strongly". Each panel uses position for its primary signal (the most accurate visual channel for magnitude, per Cleveland and McGill, 1984), and color is reserved for whatever the panel cannot encode positionally. The map uses a colorblind-safe ColorBrewer palette (<code>BrBG-5</code> for NDVI, reversed <code>RdYlBu-5</code> for LST) binned into five threshold classes, while the scatter uses hue to surface the agro-climatic region each county belongs to. We avoided red-green deliberately, around 8% of male readers cannot distinguish them and a deuteranopia simulator made our first NDVI palette unreadable.
+        The page is a <strong>linked, two-panel coordinated view</strong>. The choropleth on the left answers "where", the scatter on the right answers "how strongly". Each 
+        panel uses position for its primary signal (the most accurate visual channel for magnitude, per Cleveland and McGill, 1984), and color is reserved for whatever the
+         panel cannot encode positionally. The map uses a colorblind-safe ColorBrewer palette (<code>BrBG-5</code> for NDVI, reversed <code>RdYlBu-5</code> for LST) binned 
+         into five threshold classes, while the scatter uses hue to surface the agro-climatic region each county belongs to. We avoided red-green deliberately, around 8% of 
+         male readers cannot distinguish them and a deuteranopia simulator made our first NDVI palette unreadable.
       </p>
       <p>
-        The single most consequential decision was <strong>fixing the scatter axes across all four periods</strong>. With auto-scaling, the 2017-19 recovery cloud looked just as "extreme" as the 2020-22 drought cloud because the axes had stretched to fit it. Fixed axes instead let the user literally watch the cloud slide through the plot as they click between periods.
+        The single most consequential decision was <strong>fixing the scatter axes across all four periods</strong>. With auto-scaling, the 2017-19 recovery cloud looked just as 
+        "extreme" as the 2020-22 drought cloud because the axes had stretched to fit it. Fixed axes instead let the user literally watch the cloud slide through the plot as they 
+        click between periods.
       </p>
       <p>
-        Four interactions tie it all together. The period buttons re-fill the map and re-position the scatter dots with a 550 ms cubic-out transition, slow enough that the eye can track individual dots (object constancy, Heer and Robertson, 2007). A toggle flips the map between NDVI and LST so the user can ask "where was it hot?" and "where was it brown?" back-to-back. <strong>Brushing the scatter is the headline interaction</strong>: drag a rectangle in the scatter plot and the matching counties light up on the map, while everything else fades to around 18% opacity. This answers a question that a static plot fundamentally cannot, namely <em>where on the map do the counties in the worst quadrant of the scatter actually live?</em> Hovering on either panel then highlights the matching county on the other with a 2 px white stroke, and reveals a tooltip with the exact anomaly numbers. Together, these are what turn the dashboard into a genuine analytical tool instead of two pretty figures sitting side by side.
+        Four interactions tie it all together. The period buttons re-fill the map and re-position the scatter dots with a 550 ms cubic-out transition, slow enough that 
+        the eye can track individual dots (object constancy, Heer and Robertson, 2007). A toggle flips the map between NDVI and LST so the user can ask "where was it hot?" 
+        and "where was it brown?" back-to-back. <strong>Brushing the scatter is the headline interaction</strong>: drag a rectangle in the scatter plot and the matching 
+        counties light up on the map, while everything else fades to around 18% opacity. This answers a question that a static plot fundamentally cannot, namely <em>where on 
+          the map do the counties in the worst quadrant of the scatter actually live?</em> Hovering on either panel then highlights the matching county on the other with a 2 px 
+          white stroke, and reveals a tooltip with the exact anomaly numbers. Together, these are what turn the dashboard into a genuine analytical tool instead of two pretty 
+          figures sitting side by side.
       </p>
 
       <hr>
 
       <h2><span class="section-num">4.</span>Development Process</h2>
       <p>
-        Our process was question-first. We picked the dataset to fit the original question rather than the other way around, which avoided a common Project-3 failure mode where teams pick a dataset and then go hunting for a story. The data pipeline was built in Google Earth Engine in parallel with the front-end, which prototyped against synthetic placeholder data with the same schema, so when the real <code>anomalies.json</code> arrived swapping it in was a one-line change. The hardest decisions in retrospect were not actually technical: aggregating at the county level rather than the climate-division level (noisier, but it reveals within-region variation like Yolo vs. Yuba), fixing the scatter axes globally, and abandoning the first red-green NDVI palette after the deuteranopia test. Given another week, we would add inline tooltip sparklines, a side-by-side two-period compare mode, and a rolling baseline so the visualization extends past 2022 without a rebuild.
+        As we explored the NASA MODIS imagery and data, we found ourselves being drawn to topics involving heat, changes in vegetation, and surface temperature, 
+        which help shape our driving question. In the beginning, we also were debated between different themes/styles for the dashboard but decided on this current theme.
+        The data pipeline was built in Google Earth Engine in parallel with the front-end, which prototyped against synthetic 
+        placeholder data with the same schema, so when the real <code>anomalies.json</code> arrived swapping it in was a one-line change. The NASA MODIS data was also relatively clean, 
+        which made working with it straightforward and left the bulk of our time for the front end visualizations. The hardest decisions in 
+        retrospect were not actually technical: aggregating at the county level rather than the climate-division level (noisier, but it reveals within-region variation 
+        like Yolo vs. Yuba), fixing the scatter axes globally, and abandoning the first red-green NDVI palette after the deuteranopia test. Given another week, we would 
+        add inline tooltip sparklines, a side-by-side two-period compare mode, and a rolling baseline so the visualization extends past 2022 without a rebuild.
       </p>
       <p>
         Tools: <strong>D3.js v7</strong>, <strong>topojson-client</strong>, <strong><code>us-atlas@3</code></strong> counties-10m TopoJSON, and <strong>Google Earth Engine</strong> (Python API). No bundler, no framework, no build step. The entire app is <code>index.html</code> plus <code>main.js</code> plus two data files, served as static assets.
